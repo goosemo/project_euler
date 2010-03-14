@@ -28,7 +28,7 @@
 
 (defun fibs(number_of_terms)
   (if (> number_of_terms 0)
-    (cons (fib number_of_terms) (fibs (- number_of_terms 1)))
+    (cons (fib number_of_terms) (fibs (1- number_of_terms)))
     ))
 
 (assert (list 1 2 3 5 8 13 21 34 55 89) (reverse (fibs 10)))
@@ -48,7 +48,7 @@
   (cond 
     ((not (null numbers))
      (if (evenp (car numbers))
-       (solver (cdr numbers) (+ sum (car numbers)))
+       (solver (cdr numbers) (+ sum (car numbers))))
        (solver (cdr numbers) sum)))
     (t sum)
   ))

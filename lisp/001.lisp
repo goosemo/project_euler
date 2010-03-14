@@ -28,8 +28,8 @@
   (cond 
     ((> limit 0)
      (if (either limit)
-       (sum_multiples (- limit 1) (+ runner limit))
-       (sum_multiples (- limit 1) runner)))
+       (sum_multiples (1- limit) (+ runner limit))
+       (sum_multiples (1- limit) runner)))
      (t runner)))
 
 (defun get_multiples_sum(limit)
