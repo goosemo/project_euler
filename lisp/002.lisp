@@ -8,6 +8,7 @@
 ;four million.
 
 
+
 (defun fib(num)
   (if (> num 1)    
     (+ (fib (- num 1)) (fib (- num 2)))
@@ -31,22 +32,34 @@
     ))
 
 (assert (list 1 2 3 5 8 13 21 34 55 89) (reverse (fibs 10)))
-(print (reverse (fibs 10)))
 
-(defun solver(limit sum runner)
-  (if (< (fib runner) limit)
-    (if (evenp (fib runner))
-      (solver limit (+ sum (fib runner)) (+ runner 1))
-      (solver limit sum (+ runner 1)))
-    sum
+(defun fibsl-core(numbers limit)
+  (if (< (+ (car numbers) (cadr numbers)) limit)
+    (fibsl-core (cons (+ (car numbers) (cadr numbers)) numbers) limit)
+    numbers
     ))
 
-(assert (eq 44 (solver 90 0 1)))
+(defun fibsl(limit)
+  (fibsl-core (list 2 1) limit))
+
+(assert (equal (list 3524578 2178309 1346269 832040 514229 317811 196418 121393 75025 46368 28657 17711 10946 6765 4181 2584 1597 987 610 377 233 144 89 55 34 21 13 8 5 3 2 1) (fibsl 4000000)))
+
+(defun solver(numbers sum)
+  (cond 
+    ((not (null numbers))
+     (if (evenp (car numbers))
+       (solver (cdr numbers) (+ sum (car numbers)))
+       (solver (cdr numbers) sum)))
+    (t sum)
+  ))
+
+(print (fibsl 90))
+(assert (eq 44 (solver (fibsl 90) 0)))
 
 (defun solve(num)
-  (solver num 0 1))
+  (solver (fibsl num) 0))
 
 (print (solve 4000000))
-
+(assert (eq 4613732 (solve 4000000)))
 
 
