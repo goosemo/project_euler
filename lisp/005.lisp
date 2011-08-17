@@ -1,4 +1,3 @@
-
 ;2520 is the smallest number that can be divided by each of the numbers from 1
 ;to 10 without any remainder.
 ;
@@ -24,15 +23,20 @@
 
 (assert (eq T (divisiable_by_numbers (make_list 10) 2520)))
 
-(defun find_smallest (numbers)
-  (let (step_by) 
-     (setf step_by (car (last numbers)))
-     (do ((runner step_by (+ runner step_by)))
-       ((eq T (divisiable_by_numbers numbers runner)) runner)
-       )))
+(defun find_smallest_iter (numbers step_by)
+  (do ((runner step_by (+ runner step_by)))
+    ((eq T (divisiable_by_numbers numbers runner)) runner)
+    ))
 
-;(assert (eq 2520 (find_smallest (make_list 10))))
-;(print (reduce #'+ (make_list 10)))
+(defun find_smallest (numbers last_answer)
+  (if (not (null numbers))
+    (do ((runner steps (1+ steps)))
+      (eq runner steps
+    ))))
+
+
+(assert (eq 2520 (find_smallest (make_list 10))))
+(print (reduce #'+ (make_list 10)))
 
 ;(print (mapcar #'(lambda (x) (find_smallest (make_list x))) (make_list 19)))
 ;(print (find_smallest (make_list 5)))
@@ -42,4 +46,5 @@
 ;(print (find_smallest (make_list 16)))
 ;(print (find_smallest (make_list 18)))
 (print (find_smallest (make_list 19)))
-;(print (find_smallest (make_list 20)))
+(print (find_smallest (make_list 20)))
+

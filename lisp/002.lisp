@@ -7,12 +7,11 @@
 ;Find the sum of all the even-valued terms in the sequence which do not exceed
 ;four million.
 
-
-
 (defun fib(num)
-  (if (> num 1)    
+  (if (> num 1)
     (+ (fib (- num 1)) (fib (- num 2)))
     1))
+
 (progn ;sanity check
   (assert (eq 1  (fib  1)))
   (assert (eq 2  (fib  2)))
@@ -31,7 +30,9 @@
     (cons (fib number_of_terms) (fibs (1- number_of_terms)))
     ))
 
-(assert (list 1 2 3 5 8 13 21 34 55 89) (reverse (fibs 10)))
+(assert (equal 
+          (list 1 2 3 5 8 13 21 34 55 89) 
+          (reverse (fibs 10))))
 
 (defun fibsl-core(numbers limit)
   (if (< (+ (car numbers) (cadr numbers)) limit)
@@ -42,24 +43,27 @@
 (defun fibsl(limit)
   (fibsl-core (list 2 1) limit))
 
-(assert (equal (list 3524578 2178309 1346269 832040 514229 317811 196418 121393 75025 46368 28657 17711 10946 6765 4181 2584 1597 987 610 377 233 144 89 55 34 21 13 8 5 3 2 1) (fibsl 4000000)))
+(assert (equal (list 3524578 2178309 1346269 832040 514229 317811 196418 
+                     121393 75025 46368 28657 17711 10946 6765 4181 2584 
+                     1597 987 610 377 233 144 89 55 34 21 13 8 5 3 2 1) 
+               (fibsl 4000000)))
+
 
 (defun solver(numbers sum)
   (cond 
     ((not (null numbers))
      (if (evenp (car numbers))
-       (solver (cdr numbers) (+ sum (car numbers))))
+       (solver (cdr numbers) (+ sum (car numbers)))
        (solver (cdr numbers) sum)))
     (t sum)
-  ))
+    ))
 
-(print (fibsl 90))
-(assert (eq 44 (solver (fibsl 90) 0)))
+
+(assert (equal 44 (solver (fibsl 90) 0)))
 
 (defun solve(num)
   (solver (fibsl num) 0))
 
 (print (solve 4000000))
-(assert (eq 4613732 (solve 4000000)))
-
+(assert (equal 4613732 (solve 4000000)))
 
